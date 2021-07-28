@@ -1,24 +1,49 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Etch-A-Sketch</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <header >
-            <h1 class="header">Etch-a-Sketch</h1>
-        </header>
-        <main>
-            <p class="select-heading">Mouseover the grid to start Drawing!</p>
-            <div class="controls">
-                <input class="input" type="text" placeholder="Enter the Size of the Grid">
-                <button class="action-button">Generate</button>
-            </div>
-            <div class="matrix main-frame"></div>
-        </main>
-        <footer class="footer">
-            <button class="reset">Reset</button>
-        </footer>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-A-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1 class="heading">Etch-a-Sketch</h1>
+    </header>
+    <main class="main">
+        <div class="mobile-heading">It appears you do not have an accurate pointing device, consider opening this page
+            with a device that has access to a better pointing device</div>
+
+        <h2 class="select-heading">Mouseover the grid to start Drawing</h2>
+        <form class="controls" id="user-form">
+            <label for="input" class="accessibility">Size of Grid</label>
+            <input class="input" id="input" name="gridSize" type="number" placeholder="Enter the Size of the Grid"
+                max=64 min=4>
+            <button class="action-button">Generate</button>
+        </form>
+        <form id="color-input">
+            <fieldset class="color-buttons">
+                <legend class="color-legend">Output Color</legend>
+                <label for="color">Colored</label>
+                <input type="radio" class="color" name="color" id="color" value="colored">
+                <label for="black">Black</label>
+                <input type="radio" class="black" name="color" id="black" value="black" checked>
+                <label for="white">White</label>
+                <input type="radio" class="white" name="color" id="white" value="white">
+            </fieldset>
+        </form>
+        <div class="matrix main-frame" id="matrix"></div>
+        <button class="reset" id="reset">Reset</button>
+    </main>
+
+    <footer class="footer">
+        <div class="copyright">CopyRight &copy; Prince Thind</div>
+    </footer>
     <script src="script.js"></script>
+</body>
+
+
 </html>

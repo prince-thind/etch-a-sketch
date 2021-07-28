@@ -1,30 +1,26 @@
-const userInput = document.querySelector(".input");
-const generateButton = document.querySelector(".action-button");
-const matrixDiv = document.querySelector(".matrix");
-const resetButton = document.querySelector(".reset");
+const userForm = document.querySelector('#user-form');
+const matrixDiv = document.querySelector('#matrix');
+const resetButton = document.querySelector('#reset');
+const colorInputForm = document.querySelector('#color-input');
 
 initialize();
 
 function initialize() {
   createMatrixDivs(8);
-  generateButton.addEventListener("click", main);
-  resetButton.addEventListener("click", reset);
+  userForm.addEventListener('submit', main);
+  resetButton.addEventListener('click', reset);
 }
-function createMatrixDivs(n) {
-  if (n < 2 || n > 60) {
-    n = 8;
-    alert("please enter the number in the range of 2-60");
-  }
-  n = n || 8;
 
-  matrixDiv.style["grid-template-columns"] = `repeat(${n}, 1fr)`;
-  matrixDiv.style["grid-template-rows"] = `repeat(${n}, 1fr)`;
+function createMatrixDivs(n) {
+  matrixDiv.style['grid-template-columns'] = `repeat(${n}, 1fr)`;
+  matrixDiv.style['grid-template-rows'] = `repeat(${n}, 1fr)`;
   for (let i = 0; i < n * n; i++) {
-    const matrixElementDiv = document.createElement("div");
-    matrixElementDiv.classList.add("matrix-element");
-    matrixElementDiv.addEventListener("mouseover", animation);
-    addColorAttrubute(matrixElementDiv);
-    matrixDiv.appendChild(matrixElementDiv);
+    const matrixChild = document.createElement('div');
+    matrixChild.classList.add('matrix-element');
+    matrixChild.addEventListener('mouseover', animation);
+    matrixChild.addEventListener('click', animation);
+    addColorAttrubute(matrixChild);
+    matrixDiv.appendChild(matrixChild);
   }
 }
 
@@ -32,26 +28,40 @@ function addColorAttrubute(element) {
   const hue = Math.random() * 361;
   const sat = 75;
   const lit = 75;
-  element.setAttribute("data-hue", hue);
-  element.setAttribute("data-sat", sat);
-  element.setAttribute("data-lit", lit);
+  element.setAttribute('data-hue', hue);
+  element.setAttribute('data-sat', sat);
+  element.setAttribute('data-lit', lit);
 }
-function main() {
-  reset();
-  input = +userInput.value;
+
+function main(e) {
+  e.preventDefault();
+  reset('soft');
+  input = +userForm.gridSize.value;
   createMatrixDivs(input);
 }
-function reset() {
-  matrixDiv.innerHTML = "";
-  matrixDiv.style = "";
+function reset(flag) {
+  matrixDiv.innerHTML = '';
+  matrixDiv.style = '';
+  if (flag == 'soft') return;
   createMatrixDivs(8);
 }
 
 function animation(e) {
   const element = e.target;
-  element.setAttribute("data-lit", element.getAttribute("data-lit") - 25);
-  const hsl = `hsl(${element.getAttribute("data-hue")},${element.getAttribute(
-    "data-sat"
-  )}%,${element.getAttribute("data-lit")}%)`;
-  element.style.backgroundColor = hsl;
+  const colorInput = colorInputForm.color.value;
+
+  if (colorInput == 'colored') {
+    const litDecrement = 10;
+    const dataLit = element.getAttribute('data-lit') - litDecrement;
+    const dataHue = element.getAttribute('data-hue');
+    const dataSat = element.getAttribute('data-sat');
+
+    element.setAttribute('data-lit', dataLit);
+    const hsl = `hsl(${dataHue},${dataSat}%,${dataLit}%)`;
+    element.style.backgroundColor = hsl;
+  } else if (colorInput == 'black') {
+    element.style.backgroundColor = 'black';
+  } else {
+    element.style.backgroundColor = 'white';
+  }
 }

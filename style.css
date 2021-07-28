@@ -2,24 +2,36 @@
   margin: 0;
   padding: 0;
 }
-html {
+body {
   text-align: center;
   color: white;
-}
-body {
   background-color: hsl(0, 17%, 8%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-.header {
+.heading {
   background-color: hsl(120, 80%, 20%);
-  padding: 1rem;
+  padding: 0.5rem;
 }
 .select-heading {
   font-size: 1.3rem;
-  padding: 1em;
+  padding: 0.5rem;
 }
 .controls > * {
   padding: 0.5rem;
   margin: 0.5rem;
+}
+.color-buttons{
+  padding:1rem 10rem;
+  width: max-content;
+  margin: 0 auto;
+}
+.color-legend{
+  margin:0 auto;
+}
+.main{
+  flex:1;
 }
 .main-frame {
   width: 50%;
@@ -31,8 +43,32 @@ body {
 }
 .reset {
   padding: 0.5rem;
+  background-color: rgb(0, 0, 49);
+  color: white;
+}
+.reset:hover {
+  transform: scale(1.1);
+  background-color: rgb(117, 0, 0);
+}
+.footer {
+  background-color: black;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: 1px solid white;
+}
+.accessibility {
+  position: absolute;
+  left: -9999px;
 }
 
+.mobile-heading {
+  display: none;
+  color: hsl(0, 75%, 50%);
+  text-shadow: 0 0 1px black;
+  background-color: rgb(236, 231, 192);
+  border: 2px solid rgb(131, 0, 0);
+  padding: 0 1em;
+}
 /* js manipulation stuff*/
 .matrix {
   display: grid;
@@ -42,4 +78,31 @@ body {
 .matrix-element {
   background-color: white;
   transition: all 1s;
+}
+
+
+/*media queries*/ 
+
+@media only screen and (max-width:760px) {
+  .main-frame {
+    margin-top: 3rem;
+    width: 70%;
+  }
+  .color-buttons{
+    padding:1rem;
+  }
+}
+
+@media (hover: none) {
+  .mobile-heading {
+    display: block;
+    opacity: 0;
+    animation: entry 2s 1s forwards;
+  }
+}
+
+@keyframes entry {
+  to {
+    opacity: 1;
+  }
 }

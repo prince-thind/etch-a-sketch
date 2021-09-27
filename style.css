@@ -27,6 +27,9 @@ body {
   width: max-content;
   margin: 0 auto;
 }
+.color{
+  margin-left:2rem;
+}
 .color-legend{
   margin:0 auto;
 }
@@ -90,6 +93,9 @@ body {
   }
   .color-buttons{
     padding:1rem;
+  }
+  .color{
+    margin:0;
   }
 }
 

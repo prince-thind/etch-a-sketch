@@ -7,7 +7,7 @@ initialize();
 
 function initialize() {
   createMatrixDivs(8);
-  userForm.addEventListener('submit', main);
+  userForm.addEventListener('submit', handleInput);
   resetButton.addEventListener('click', reset);
 }
 
@@ -26,19 +26,16 @@ function createMatrixDivs(n) {
 
 function addColorAttrubute(element) {
   const hue = Math.random() * 361;
-  const sat = 75;
-  const lit = 75;
   element.setAttribute('data-hue', hue);
-  element.setAttribute('data-sat', sat);
-  element.setAttribute('data-lit', lit);
 }
 
-function main(e) {
+function handleInput(e) {
   e.preventDefault();
   reset('soft');
   input = +userForm.gridSize.value;
   createMatrixDivs(input);
 }
+
 function reset(flag) {
   matrixDiv.innerHTML = '';
   matrixDiv.style = '';
@@ -50,18 +47,22 @@ function animation(e) {
   const element = e.target;
   const colorInput = colorInputForm.color.value;
 
-  if (colorInput == 'colored') {
-    const litDecrement = 10;
-    const dataLit = element.getAttribute('data-lit') - litDecrement;
-    const dataHue = element.getAttribute('data-hue');
-    const dataSat = element.getAttribute('data-sat');
-
-    element.setAttribute('data-lit', dataLit);
-    const hsl = `hsl(${dataHue},${dataSat}%,${dataLit}%)`;
-    element.style.backgroundColor = hsl;
-  } else if (colorInput == 'black') {
-    element.style.backgroundColor = 'black';
-  } else {
-    element.style.backgroundColor = 'white';
+  switch (colorInput) {
+    case 'colored':
+      const sat = getNumberBetween(25, 75);
+      const lit = getNumberBetween(25, 75);
+      const hue = element.getAttribute('data-hue');
+      const hsl = `hsl(${hue},${sat}%,${lit}%)`;
+      element.style.backgroundColor = hsl;
+      break;
+    case 'black':
+      element.style.backgroundColor = 'black';
+      break;
+    case 'white':
+      element.style.backgroundColor = 'white';
+      break;
   }
+}
+function getNumberBetween(a, b) {
+  return Math.trunc(Math.random() * (b - a) + a);
 }

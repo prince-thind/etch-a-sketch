@@ -3,12 +3,30 @@ const matrixDiv = document.querySelector("#matrix");
 const resetButton = document.querySelector("#reset");
 const colorInputForm = document.querySelector("#color-form");
 
+const state = {
+  color: "#000",
+  drawEnabled: false,
+};
+
+document.body.addEventListener("dragstart", preventDraging);
+
 sizeForm.addEventListener("submit", handelSizeFormSubmit);
+colorInputForm.addEventListener("change", updateColor);
 resetButton.addEventListener("click", reset);
-matrixDiv.addEventListener("mouseover", animate);
+document.addEventListener("mousedown", enableDraw);
+document.addEventListener("mouseup", disableDraw);
+matrixDiv.addEventListener("mousemove", animate);
 matrixDiv.addEventListener("click", animate);
 
 setMatrixSize(8);
+
+function enableDraw(e) {
+  state.drawEnabled = true;
+}
+
+function disableDraw(e) {
+  state.drawEnabled = false;
+}
 
 function handelSizeFormSubmit(e) {
   e.preventDefault();
@@ -30,11 +48,21 @@ function setMatrixSize(n) {
 }
 
 function animate(e) {
-  const element=e.target;
-  element.style.backgroundColor="black";
+  if (state.drawEnabled == true || e.type === "click") {
+    const element = e.target;
+    element.style.backgroundColor = state.color;
+  }
 }
 
+function reset() {
+  setMatrixSize(8);
+}
 
-function reset(){
-  setMatrixSize(8)
+function preventDraging(e) {
+  e.preventDefault();
+}
+
+function updateColor(e) {
+  const color = e.target.value;
+  state.color = color;
 }

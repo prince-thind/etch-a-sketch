@@ -103,6 +103,10 @@ body {
   border: 5px inset white;
 }
 
+.main-frame:hover {
+  cursor: crosshair;
+}
+
 .reset {
   padding: 0.5rem;
   font-size: 1.3rem;
@@ -135,23 +139,31 @@ body {
   transition: all 1s;
 }
 
+.matrix-element:hover {
+  border: 1px inset black;
+  transition: border 0s;
+}
+
 
 /*media queries*/
 
 @media only screen and (max-width:760px) {
-  .l-horizontal{
+  .l-horizontal {
     flex-direction: column;
     padding-left: 0;
     margin: 1rem;
   }
-  .forms{
+
+  .forms {
     margin-top: 0;
   }
-  .main-frame{
+
+  .main-frame {
     width: 90%;
   }
-  .reset{
-    margin: 1rem ;
+
+  .reset {
+    margin: 1rem;
   }
 }
 
